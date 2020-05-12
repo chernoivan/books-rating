@@ -1,0 +1,27 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="add created_at and updated to application_user" author="chernoivan">
+        <addColumn tableName="application_user">
+            <column name="created_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add created_at and updated_at to assessment" author="chernoivan">
+        <addColumn tableName="assessment">
+            <column name="created_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add created_at and updated_at to assessment_rating" author="chernoivan">
+        <addColumn tableName="assessment_rating">
+            <column name="created_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

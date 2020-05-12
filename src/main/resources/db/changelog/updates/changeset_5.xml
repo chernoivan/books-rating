@@ -1,0 +1,47 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+                <changeSet id="create table creative_team" author="chernoivan">
+                  <createTable tableName="creative_team">
+                    <column name="id" type="uuid">
+                        <constraints primaryKey="true"/>
+                    </column>
+                    <column name="first_name" type="varchar(50)"/>
+                    <column name="last_name" type="varchar(50)"/>
+                    <column name="date_of_birth" type="datetime"/>
+                    <column name="biography" type="varchar(255)"/>
+                    <column name="created_at" type="datetime"/>
+                    <column name="updated_at" type="datetime"/>
+                  </createTable>
+
+                </changeSet>
+
+                <changeSet id="create table member_type" author="chernoivan">
+                  <createTable tableName="member_type">
+                    <column name="id" type="uuid">
+                      <constraints primaryKey="true"/>
+                    </column>
+                    <column name="creative_team_id" type="uuid">
+                        <constraints foreignKeyName="fk_mt_creative_team_id"
+                                     referencedTableName="creative_team"
+                                     referencedColumnNames="id"/>
+                    </column>
+                    <column name="creative_member_type" type="varchar(20)"/>
+                    <column name="created_at" type="datetime"/>
+                    <column name="updated_at" type="datetime"/>
+                  </createTable>
+                </changeSet>
+
+                <changeSet id="add column member_type in member_assessment" author="chernoivan">
+                  <addColumn tableName="member_assessment">
+                    <column name="member_type_id" type="uuid">
+                      <constraints foreignKeyName="fk_ma_member_type_id"
+                                   referencedTableName="member_type"
+                                   referencedColumnNames="id"/>
+                    </column>
+                  </addColumn>
+                </changeSet>
+
+</databaseChangeLog>

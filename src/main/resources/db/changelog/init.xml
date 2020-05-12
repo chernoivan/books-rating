@@ -1,0 +1,50 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create tables" author="chernoivan">
+        <createTable tableName="application_user">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(20)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="access" type="varchar(20)"/>
+            <column name="user_type" type="varchar(20)"/>
+        </createTable>
+
+        <createTable tableName="assessment">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="likes_count" type="int"/>
+            <column name="assessment_text" type="varchar(255)"/>
+            <column name="rating" type="int"/>
+            <column name="assessment_type" type="varchar(20)"/>
+        </createTable>
+
+        <createTable tableName="assessment_rating">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name = "like_status" type="boolean"/>
+            <column name="user_id" type="uuid">
+                <constraints foreignKeyName="fk_ar_username_id"
+                             referencedTableName="application_user"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="assessment_id" type="uuid">
+                <constraints foreignKeyName="fk_ar_assessment_id"
+                             referencedTableName="assessment"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

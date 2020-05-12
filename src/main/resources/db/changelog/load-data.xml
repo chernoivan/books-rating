@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="load application_users" author="chernoivan" runOnChange="true">
+        <loadUpdateData tableName="application_user" file="db/data/application_users.csv" separator=";" primaryKey="id">
+            <column name="id" type="uuid"/>
+            <column name="username" type="string"/>
+            <column name="email" type="string"/>
+            <column name="access" type="string"/>
+            <column name="user_type" type="string"/>
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="load assessment" author="chernoivan" runOnChange="true">
+        <loadUpdateData tableName="assessment" file="db/data/assessment.csv" separator=";" primaryKey="id">
+            <column name="id" type="uuid"/>
+            <column name="likes_count" type="numeric"/>
+            <column name="assessment_text" type="string"/>
+            <column name="rating" type="numeric"/>
+            <column name="assessment_type" type="string"/>
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="load assessment_rating" author="chernoivan" runOnChange="true">
+        <loadUpdateData tableName="assessment_rating" file="db/data/assessment_rating.csv" separator=";" primaryKey="id">
+            <column name="id" type="uuid"/>
+            <column name="like_status" type="boolean"/>
+            <column name="user_id" type="uuid"/>
+            <column name="assessment_id" type="uuid"/>
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create table member_assessment" author="chernoivan">
+        <createTable tableName="member_assessment">
+          <column name="id" type="uuid">
+            <constraints primaryKey="true"/>
+          </column>
+          <column name="role" type="varchar(255)"/>
+          <column name="rating" type="double"/>
+          <column name="created_at" type="datetime"/>
+          <column name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add column member_assessment to assessment" author="chernoivan">
+        <addColumn tableName="assessment">
+            <column name="member_assessment_id" type="uuid">
+                <constraints foreignKeyName="fk_ar_member_id"
+                             referencedTableName="member_assessment"
+                             referencedColumnNames="id"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
