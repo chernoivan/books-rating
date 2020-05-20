@@ -3,27 +3,18 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-                <changeSet id="add column film in member_assessment" author="chernoivan">
-                  <addColumn tableName="member_assessment">
-                    <column name="film_id" type="uuid">
-                      <constraints foreignKeyName="fk_ma_film_id"
-                                   referencedTableName="film"
-                                   referencedColumnNames="id"/>
-                    </column>
-                  </addColumn>
-                </changeSet>
 
-                <changeSet id="add table film_genre" author="chernoivan">
-                  <createTable tableName="film_genre">
+                <changeSet id="add table book_genre" author="chernoivan">
+                  <createTable tableName="book_genre">
                     <column name="id" type="uuid">
                       <constraints primaryKey="true"/>
                     </column>
-                    <column name="film_id" type="uuid">
-                        <constraints foreignKeyName="fk_fg_film_id"
-                                     referencedTableName="film"
+                    <column name="book_id" type="uuid">
+                        <constraints foreignKeyName="fk_bg_book_id"
+                                     referencedTableName="book"
                                      referencedColumnNames="id"/>
                     </column>
-                    <column name="film_genres" type="varchar(20)"/>
+                    <column name="book_genres" type="varchar(20)"/>
                     <column name="created_at" type="datetime"/>
                     <column name="updated_at" type="datetime"/>
                   </createTable>

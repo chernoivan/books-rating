@@ -3,37 +3,29 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="create table film" author="chernoivan">
-        <createTable tableName="film">
+    <changeSet id="create table book" author="chernoivan">
+        <createTable tableName="book">
           <column name="id" type="uuid">
             <constraints primaryKey="true"/>
           </column>
           <column name="title" type="varchar(255)"/>
-          <column name="film_rating" type="double"/>
-          <column name="releaseDate" type="datetime"/>
+          <column name="book_rating" type="double"/>
+          <column name="release_date" type="datetime"/>
           <column name="info" type="varchar(255)"/>
-          <column name="film_status" type="varchar(20)"/>
+          <column name="book_status" type="varchar(20)"/>
           <column name="created_at" type="datetime"/>
           <column name="updated_at" type="datetime"/>
         </createTable>
     </changeSet>
 
-    <changeSet id="add column film to assessment" author="chernoivan">
+    <changeSet id="add column book to assessment" author="chernoivan">
         <addColumn tableName="assessment">
-            <column name="film_id" type="uuid">
-                <constraints foreignKeyName="fk_ar_film_id"
-                             referencedTableName="film"
+            <column name="book_id" type="uuid">
+                <constraints foreignKeyName="fk_a_book_id"
+                             referencedTableName="book"
                              referencedColumnNames="id"/>
             </column>
         </addColumn>
     </changeSet>
 
-    <changeSet id="add release_date to film" author="chernoivan">
-        <addColumn tableName="film">
-            <column name="release_date" type="datetime"/>
-        </addColumn>
-        <dropColumn tableName="film">
-            <column name="releaseDate" type="datetime"/>
-        </dropColumn>
-    </changeSet>
 </databaseChangeLog>

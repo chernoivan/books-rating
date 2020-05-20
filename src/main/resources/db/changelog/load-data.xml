@@ -32,4 +32,17 @@
             <column name="assessment_id" type="uuid"/>
         </loadUpdateData>
     </changeSet>
+
+    <changeSet id="load author" author="chernoivan" runOnChange="true">
+        <loadUpdateData tableName="author" file="db/data/author.csv" separator=";" primaryKey="id">
+            <column name="id" type="uuid"/>
+            <column name="first_name" type="string"/>
+            <column name="last_name" type="string"/>
+            <column name="biography" type="string"/>
+            <column name="dateOfBirth" type="date"/>
+            <column name="biography" type="numeric"/>
+        </loadUpdateData>
+    </changeSet>
+
+
 </databaseChangeLog>
