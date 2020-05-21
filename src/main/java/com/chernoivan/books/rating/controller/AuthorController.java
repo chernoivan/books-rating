@@ -1,9 +1,9 @@
 package com.chernoivan.books.rating.controller;
 
-import com.chernoivan.books.rating.dto.Author.AuthorCreateDTO;
-import com.chernoivan.books.rating.dto.Author.AuthorPatchDTO;
-import com.chernoivan.books.rating.dto.Author.AuthorPutDTO;
-import com.chernoivan.books.rating.dto.Author.AuthorReadDTO;
+import com.chernoivan.books.rating.dto.author.AuthorCreateDTO;
+import com.chernoivan.books.rating.dto.author.AuthorPatchDTO;
+import com.chernoivan.books.rating.dto.author.AuthorPutDTO;
+import com.chernoivan.books.rating.dto.author.AuthorReadDTO;
 import com.chernoivan.books.rating.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

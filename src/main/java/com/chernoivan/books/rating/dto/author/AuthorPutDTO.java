@@ -1,4 +1,4 @@
-package com.chernoivan.books.rating.dto.Author;
+package com.chernoivan.books.rating.dto.author;
 
 import lombok.Data;
 

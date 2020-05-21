@@ -4,13 +4,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.chernoivan.books.rating.domain.ApplicationUser;
-import com.chernoivan.books.rating.domain.Book;
 import com.chernoivan.books.rating.domain.enums.AccessLevelType;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserCreateDTO;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserPatchDTO;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserPutDTO;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserReadDTO;
-import com.chernoivan.books.rating.dto.book.BookReadDTO;
 import com.chernoivan.books.rating.exception.EntityNotFoundException;
 import com.chernoivan.books.rating.exception.hander.ErrorInfo;
 import com.chernoivan.books.rating.exception.hander.RestExceptionHandler;

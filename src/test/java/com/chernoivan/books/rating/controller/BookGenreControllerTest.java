@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,16 +25,17 @@ public class BookGenreControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
+    @MockBean
     private BookGenreService bookGenreService;
 
 
     @Test
-    public void testDeleteAssessment() throws Exception {
+    public void testDeleteBookGenre() throws Exception {
         UUID id = UUID.randomUUID();
+        UUID book_id = UUID.randomUUID();
 
-        mvc.perform(delete("/api/v1/assessments/{id}", id.toString())).andExpect(status().isOk());
+        mvc.perform(delete("/api/v1/books/{book_id}/book-genres/{id}", book_id.toString(), id.toString())).andExpect(status().isOk());
 
-        Mockito.verify(bookGenreService).deleteFilmGenre(id, id);
+        Mockito.verify(bookGenreService).deleteFilmGenre(book_id, id);
     }
 }

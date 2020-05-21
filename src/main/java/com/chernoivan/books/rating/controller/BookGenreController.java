@@ -23,8 +23,10 @@ public class BookGenreController {
     }
 
     @PutMapping("/{id}")
-    public BookGenreReadDTO putBookGenre(@PathVariable UUID bookId, @PathVariable UUID id, @RequestBody BookGenrePutDTO put) {
-        return bookGenreService.updateBookGenre(bookId, id,put);
+    public BookGenreReadDTO putBookGenre(@PathVariable UUID bookId,
+                                         @PathVariable UUID id,
+                                         @RequestBody BookGenrePutDTO put) {
+        return bookGenreService.updateBookGenre(bookId, id, put);
     }
 
     @PostMapping
@@ -33,8 +35,10 @@ public class BookGenreController {
     }
 
     @PatchMapping("/{id}")
-    public BookGenreReadDTO patchBookGenre(@PathVariable UUID bookId,  @PathVariable UUID id, @RequestBody BookGenrePatchDTO patch) {
-        return bookGenreService.patchBookGenre(bookId, id,patch);
+    public BookGenreReadDTO patchBookGenre(@PathVariable UUID bookId,
+                                           @PathVariable UUID id,
+                                           @RequestBody BookGenrePatchDTO patch) {
+        return bookGenreService.patchBookGenre(bookId, id, patch);
     }
 
     @DeleteMapping("/{id}")

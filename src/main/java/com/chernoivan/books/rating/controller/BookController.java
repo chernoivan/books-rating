@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RestController
+
 @RequestMapping("api/v1/books")
+@RestController
 public class BookController {
 
     @Autowired
@@ -36,12 +37,6 @@ public class BookController {
     public BookReadDTO patchBook(@PathVariable UUID id, @RequestBody BookPatchDTO patch) {
         return bookService.patchBook(id, patch);
     }
-
-//    @PostMapping("/authors/{authorId}/books/{id}")
-//    public List<BookReadDTO> addAuthorToBook(@PathVariable UUID authorId, @PathVariable UUID id) {
-//        return bookService.addAuthorToBook(authorId, id);
-//    }
-
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable UUID id) {

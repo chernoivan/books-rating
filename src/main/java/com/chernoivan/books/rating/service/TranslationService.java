@@ -1,10 +1,10 @@
 package com.chernoivan.books.rating.service;
 
 import com.chernoivan.books.rating.domain.*;
-import com.chernoivan.books.rating.dto.Author.AuthorCreateDTO;
-import com.chernoivan.books.rating.dto.Author.AuthorPatchDTO;
-import com.chernoivan.books.rating.dto.Author.AuthorPutDTO;
-import com.chernoivan.books.rating.dto.Author.AuthorReadDTO;
+import com.chernoivan.books.rating.dto.author.AuthorCreateDTO;
+import com.chernoivan.books.rating.dto.author.AuthorPatchDTO;
+import com.chernoivan.books.rating.dto.author.AuthorPutDTO;
+import com.chernoivan.books.rating.dto.author.AuthorReadDTO;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserCreateDTO;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserPatchDTO;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserPutDTO;

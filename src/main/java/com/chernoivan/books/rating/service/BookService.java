@@ -42,7 +42,6 @@ public class BookService {
         return translationService.toRead(book);
     }
 
-
     public BookReadDTO updateBook(UUID id, BookPutDTO put) {
         Book book = getFilmRequired(id);
 

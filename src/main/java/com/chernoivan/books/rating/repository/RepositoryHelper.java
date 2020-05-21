@@ -23,7 +23,7 @@ public class RepositoryHelper {
         Query query = entityManager.createQuery(
                 "select count(e) from " + entityClass.getSimpleName() + " e where e.id = :id");
         query.setParameter("id", id);
-        boolean exist = ((Number)query.getSingleResult()).intValue() > 0;
+        boolean exist = ((Number) query.getSingleResult()).intValue() > 0;
         if (!exist) {
             throw new EntityNotFoundException(entityClass, id);
         }
