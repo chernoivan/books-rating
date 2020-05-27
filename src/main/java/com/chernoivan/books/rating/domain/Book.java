@@ -9,8 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +24,7 @@ public class Book {
     private UUID id;
     private String title;
     private Double bookRating;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private String info;
 
     @Enumerated(EnumType.STRING)

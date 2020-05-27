@@ -12,7 +12,9 @@ import com.chernoivan.books.rating.repository.RepositoryHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class BookGenreService {
@@ -26,9 +28,13 @@ public class BookGenreService {
     @Autowired
     private RepositoryHelper repositoryHelper;
 
-    public BookGenreReadDTO getBookGenres(UUID id) {
-        BookGenre bookGenre = getBookGenreRequired(id);
-        return translationService.toRead(bookGenre);
+    public List<BookGenreReadDTO> getBookGenres(UUID bookId) {
+        List<BookGenre> bookGenres = bookGenreRepository.findByBookId(bookId);
+        if (bookGenres != null) {
+            return bookGenres.stream().map(translationService::toRead).collect(Collectors.toList());
+        } else {
+            throw new EntityNotFoundException(Book.class, bookId);
+        }
     }
 
     public BookGenreReadDTO createBookGenre(UUID bookId, BookGenreCreateDTO create) {
@@ -43,7 +49,10 @@ public class BookGenreService {
         BookGenre bookGenre = getBookGenreRequired(id);
 
         translationService.patchEntity(patch, bookGenre);
-        bookGenre.setBook(repositoryHelper.getReferenceIfExist(Book.class, bookId));
+
+        if (patch.getBookId() != null) {
+            bookGenre.setBook(repositoryHelper.getReferenceIfExist(Book.class, bookId));
+        }
 
         bookGenre = bookGenreRepository.save(bookGenre);
         return translationService.toRead(bookGenre);
@@ -60,7 +69,12 @@ public class BookGenreService {
     }
 
     public void deleteFilmGenre(UUID bookId, UUID id) {
-        bookGenreRepository.delete(getBookGenreRequired(id));
+        List<BookGenre> bookGenres = bookGenreRepository.findByIdAndBookId(id, bookId);
+        if (bookGenres != null) {
+            bookGenreRepository.delete(getBookGenreRequired(id));
+        } else {
+            throw new EntityNotFoundException(Book.class, bookId, BookGenre.class, id);
+        }
     }
 
     public BookGenre getBookGenreRequired(UUID id) {

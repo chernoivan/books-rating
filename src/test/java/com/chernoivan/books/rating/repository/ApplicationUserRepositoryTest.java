@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 @Sql(statements = "delete from application_user", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @ActiveProfiles("test")
 public class ApplicationUserRepositoryTest {
+
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
 

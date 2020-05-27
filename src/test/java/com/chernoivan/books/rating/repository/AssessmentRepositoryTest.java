@@ -2,9 +2,11 @@ package com.chernoivan.books.rating.repository;
 
 import com.chernoivan.books.rating.domain.ApplicationUser;
 import com.chernoivan.books.rating.domain.Assessment;
+import com.chernoivan.books.rating.domain.Book;
 import com.chernoivan.books.rating.domain.enums.AccessLevelType;
 import com.chernoivan.books.rating.domain.enums.AssessmentType;
 import com.chernoivan.books.rating.domain.enums.UserRoleType;
+import com.chernoivan.books.rating.dto.book.BookReadDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +34,9 @@ public class AssessmentRepositoryTest {
 
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @Test
     public void testAssessment() {
@@ -71,13 +76,36 @@ public class AssessmentRepositoryTest {
         Assert.assertEquals(updatedAtBeforeReload, updatedAtAfterReload);
     }
 
+    @Test
+    public void testCalcAverageMark() {
+        Book book = createBook();
+        Book book1 = createBook();
+        ApplicationUser user = createUser();
+
+        createAssessmentForMark(user, book, 6);
+        createAssessmentForMark(user, book, 8);
+        createAssessmentForMark(user, book1, 10);
+
+        Assert.assertEquals(7, assessmentRepository.calcAverageMarkOfBook(book.getId()), Double.MIN_NORMAL);
+    }
+
     private Assessment createAssessment(ApplicationUser applicationUser) {
         Assessment assessment = new Assessment();
         assessment.setAssessmentText("great movie");
         assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
         assessment.setLikesCount(23);
-        assessment.setRating(8);
         assessment.setUser(applicationUser);
+        return assessmentRepository.save(assessment);
+    }
+
+    private Assessment createAssessmentForMark(ApplicationUser applicationUser, Book book, Integer rating) {
+        Assessment assessment = new Assessment();
+        assessment.setAssessmentText("great movie");
+        assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        assessment.setLikesCount(23);
+        assessment.setUser(applicationUser);
+        assessment.setBook(book);
+        assessment.setRating(rating);
         return assessmentRepository.save(assessment);
     }
 
@@ -88,5 +116,11 @@ public class AssessmentRepositoryTest {
         applicationUser.setAccess(AccessLevelType.FULL_ACCESS);
         applicationUser.setUserType(UserRoleType.MODERATOR);
         return applicationUserRepository.save(applicationUser);
+    }
+
+    private Book createBook() {
+        Book book = new Book();
+        book.setTitle("Hello");
+        return bookRepository.save(book);
     }
 }

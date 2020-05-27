@@ -151,7 +151,6 @@ public class TranslationService {
         assessment.setAssessmentType(create.getAssessmentType());
         assessment.setLikesCount(create.getLikesCount());
         assessment.setRating(create.getRating());
-        assessment.setUser(repositoryHelper.getReferenceIfExist(ApplicationUser.class, create.getUserId()));
         assessment.setBook(repositoryHelper.getReferenceIfExist(Book.class, create.getBookId()));
         return assessment;
     }
@@ -170,7 +169,6 @@ public class TranslationService {
     public BookGenre toEntity(BookGenreCreateDTO create) {
         BookGenre bookGenre = new BookGenre();
         bookGenre.setBookGenres(create.getBookGenres());
-        bookGenre.setBook(repositoryHelper.getReferenceIfExist(Book.class, create.getBookId()));
         return bookGenre;
     }
 
@@ -219,10 +217,6 @@ public class TranslationService {
             assessment.setRating(patch.getRating());
         }
 
-        if (patch.getUserId() != null) {
-            assessment.setUser(repositoryHelper.getReferenceIfExist(ApplicationUser.class, patch.getUserId()));
-        }
-
         if (patch.getBookId() != null) {
             assessment.setBook(repositoryHelper.getReferenceIfExist(Book.class, patch.getBookId()));
         }
@@ -251,10 +245,6 @@ public class TranslationService {
     }
 
     public void patchEntity(BookGenrePatchDTO patch, BookGenre bookGenre) {
-        if (patch.getBookId() != null) {
-            bookGenre.setBook(repositoryHelper.getReferenceIfExist(Book.class, patch.getBookId()));
-        }
-
         if (patch.getBookGenres() != null) {
             bookGenre.setBookGenres(patch.getBookGenres());
         }
@@ -294,7 +284,6 @@ public class TranslationService {
         assessment.setAssessmentType(put.getAssessmentType());
         assessment.setLikesCount(put.getLikesCount());
         assessment.setRating(put.getRating());
-        assessment.setUser(repositoryHelper.getReferenceIfExist(ApplicationUser.class, put.getUserId()));
         assessment.setBook(repositoryHelper.getReferenceIfExist(Book.class, put.getBookId()));
     }
 
@@ -308,7 +297,6 @@ public class TranslationService {
 
     public void updateEntity(BookGenrePutDTO put, BookGenre bookGenre) {
         bookGenre.setBookGenres(put.getBookGenres());
-        bookGenre.setBook(repositoryHelper.getReferenceIfExist(Book.class, put.getBookId()));
     }
 
     public void updateEntity(AuthorPutDTO put, Author author) {

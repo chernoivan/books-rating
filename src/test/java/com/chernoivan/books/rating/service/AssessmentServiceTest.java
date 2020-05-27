@@ -10,6 +10,7 @@ import com.chernoivan.books.rating.dto.assessment.AssessmentCreateDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentPatchDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentPutDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentReadDTO;
+import com.chernoivan.books.rating.exception.EntityNotFoundException;
 import com.chernoivan.books.rating.repository.ApplicationUserRepository;
 import com.chernoivan.books.rating.repository.AssessmentRepository;
 import com.chernoivan.books.rating.repository.BookRepository;
@@ -24,6 +25,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import java.util.List;
 import java.util.UUID;
 
 @RunWith(SpringRunner.class)
@@ -61,6 +63,18 @@ public class AssessmentServiceTest {
     }
 
     @Test
+    public void testGetUserAssessments() {
+        ApplicationUser applicationUser = createUser();
+        Book book = createBook();
+        Assessment assessment = createAssessment(applicationUser, book);
+        Assessment assessment1 = createAssessment(applicationUser,book);
+
+        List<AssessmentReadDTO> read = assessmentService.getAssessmentsByUser(applicationUser.getId());
+        Assertions.assertThat(assessment).isEqualToIgnoringGivenFields(read.get(0), "user", "book", "items");
+        Assertions.assertThat(assessment1).isEqualToIgnoringGivenFields(read.get(1), "user", "book", "items");
+    }
+
+    @Test
     public void testCreateAssessment() {
         ApplicationUser user = createUser();
         Book book = createBook();
@@ -72,7 +86,7 @@ public class AssessmentServiceTest {
         create.setRating(8);
         create.setUserId(user.getId());
 
-        AssessmentReadDTO read = assessmentService.createAssessment(create);
+        AssessmentReadDTO read = assessmentService.createAssessment(user.getId(), create);
         Assertions.assertThat(create).isEqualToComparingFieldByField(read);
         Assert.assertNotNull(read.getId());
 
@@ -94,7 +108,7 @@ public class AssessmentServiceTest {
         patch.setUserId(applicationUser.getId());
         patch.setBookId(book.getId());
 
-        AssessmentReadDTO read = assessmentService.patchAssessment(assessment.getId(), patch);
+        AssessmentReadDTO read = assessmentService.patchAssessment(applicationUser.getId(), assessment.getId(), patch);
 
         Assertions.assertThat(patch).isEqualToComparingFieldByField(read);
 
@@ -113,7 +127,7 @@ public class AssessmentServiceTest {
         put.setRating(8);
         put.setBookId(book.getId());
         put.setUserId(applicationUser.getId());
-        AssessmentReadDTO read = assessmentService.updateAssessment(assessment.getId(), put);
+        AssessmentReadDTO read = assessmentService.updateAssessment(applicationUser.getId(), assessment.getId(), put);
 
         Assertions.assertThat(put).isEqualToComparingFieldByField(read);
 
@@ -128,7 +142,7 @@ public class AssessmentServiceTest {
         Assessment assessment = createAssessment(applicationUser, book);
 
         AssessmentPatchDTO patch = new AssessmentPatchDTO();
-        AssessmentReadDTO read = assessmentService.patchAssessment(assessment.getId(), patch);
+        AssessmentReadDTO read = assessmentService.patchAssessment(applicationUser.getId(), assessment.getId(), patch);
 
         Assert.assertNotNull(read.getAssessmentText());
         Assert.assertNotNull(read.getAssessmentType());
@@ -156,8 +170,23 @@ public class AssessmentServiceTest {
         Book book = createBook();
         Assessment assessment = createAssessment(applicationUser, book);
 
-        assessmentService.deleteAssessment(assessment.getId());
+        assessmentService.deleteAssessment(applicationUser.getId(), assessment.getId());
         Assert.assertFalse(assessmentRepository.existsById(assessment.getId()));
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void testDeleteAssessmentNotFound() {
+        assessmentService.deleteAssessment(UUID.randomUUID(), UUID.randomUUID());
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void testGetAssessmentWrongId() {
+        assessmentService.getAssessment(UUID.randomUUID());
+    }
+
+    @Test()
+    public void testGetAssessmentByUserWrongId() {
+        assessmentService.getAssessmentsByUser(UUID.randomUUID());
     }
 
     private Book createBook() {

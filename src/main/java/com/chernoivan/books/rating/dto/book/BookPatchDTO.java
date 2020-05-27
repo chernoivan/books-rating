@@ -3,13 +3,13 @@ package com.chernoivan.books.rating.dto.book;
 import com.chernoivan.books.rating.domain.enums.BookStatus;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class BookPatchDTO {
     private String title;
     private Double bookRating;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private String info;
     private BookStatus bookStatus;
 

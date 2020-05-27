@@ -34,7 +34,7 @@ public class BookRepositoryTest {
 
     @Test
     public void testCreatedAtIsSet() {
-        Book book = createFilm();
+        Book book = createBook();
 
         Instant createdAtBeforeReload = book.getCreatedAt();
         Assert.assertNotNull(createdAtBeforeReload);
@@ -47,7 +47,7 @@ public class BookRepositoryTest {
 
     @Test
     public void testUpdatedAtIsSet() {
-        Book book = createFilm();
+        Book book = createBook();
 
         Instant updatedAtBeforeReload = book.getUpdatedAt();
         Assert.assertNotNull(updatedAtBeforeReload);
@@ -58,7 +58,7 @@ public class BookRepositoryTest {
         Assert.assertEquals(updatedAtBeforeReload, updatedAtAfterReload);
     }
 
-    private Book createFilm() {
+    private Book createBook() {
         Book book = new Book();
         book.setBookRating(5.0);
         book.setBookStatus(BookStatus.UNRELEASED);

@@ -8,6 +8,7 @@ import com.chernoivan.books.rating.service.BookGenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,8 +19,8 @@ public class BookGenreController {
     private BookGenreService bookGenreService;
 
     @GetMapping
-    public BookGenreReadDTO getBookGenres(@PathVariable UUID id) {
-        return bookGenreService.getBookGenres(id);
+    public List<BookGenreReadDTO> getBookGenres(@PathVariable UUID bookId) {
+        return bookGenreService.getBookGenres(bookId);
     }
 
     @PutMapping("/{id}")
@@ -30,7 +31,7 @@ public class BookGenreController {
     }
 
     @PostMapping
-    public BookGenreReadDTO createBookGenre(@PathVariable UUID bookId, BookGenreCreateDTO create) {
+    public BookGenreReadDTO createBookGenre(@PathVariable UUID bookId, @RequestBody BookGenreCreateDTO create) {
         return bookGenreService.createBookGenre(bookId, create);
     }
 
