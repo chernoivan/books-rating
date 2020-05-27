@@ -29,8 +29,7 @@ import java.util.UUID;
 @ActiveProfiles("test")
 @Sql(statements = {
         "delete from book_genre",
-        "delete from book"
-},
+        "delete from book"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class BookGenreServiceTest {
 
