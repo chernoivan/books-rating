@@ -59,7 +59,7 @@ public class AssessmentRatingServiceTest {
         AssessmentRating assessmentRating = createAssessmentRating(applicationUser, assessment);
 
         AssessmentRatingReadDTO readDTO = assessmentRatingService.getAssessmentRating(assessmentRating.getId());
-        Assertions.assertThat(readDTO).isEqualToIgnoringGivenFields(assessmentRating, "user", "assessment");
+        Assertions.assertThat(assessmentRating).isEqualToIgnoringGivenFields(readDTO, "user", "assessment");
     }
 
     @Test
@@ -71,8 +71,8 @@ public class AssessmentRatingServiceTest {
 
         AssessmentRatingReadExtendedDTO readDTO = assessmentRatingService
                 .getAssessmentRatingExtended(assessmentRating.getId());
-        Assertions.assertThat(readDTO).isEqualToIgnoringGivenFields(assessmentRating, "user", "assessment");
-        Assertions.assertThat(readDTO.getUser()).isEqualToIgnoringGivenFields(applicationUser);
+        Assertions.assertThat(assessmentRating).isEqualToIgnoringGivenFields(readDTO, "user", "assessment");
+        Assertions.assertThat(readDTO.getUserId()).isEqualToIgnoringGivenFields(applicationUser);
     }
 
     @Test(expected = EntityNotFoundException.class)
@@ -87,8 +87,8 @@ public class AssessmentRatingServiceTest {
         Book book = createBook();
         Assessment assessment = createAssessment(applicationUser, book);
         AssessmentRatingCreateDTO create = new AssessmentRatingCreateDTO();
-        create.setUser(applicationUser.getId());
-        create.setAssessment(assessment.getId());
+        create.setUserId(applicationUser.getId());
+        create.setAssessmentId(assessment.getId());
         create.setLikeStatus(true);
 
         AssessmentRatingReadDTO read = assessmentRatingService.createAssessmentRating(create);
@@ -96,7 +96,7 @@ public class AssessmentRatingServiceTest {
         Assert.assertNotNull(read.getId());
 
         AssessmentRating assessmentRating = assessmentRatingRepository.findById(read.getId()).get();
-        Assertions.assertThat(read).isEqualToIgnoringGivenFields(assessmentRating, "user", "assessment");
+        Assertions.assertThat(assessmentRating).isEqualToIgnoringGivenFields(read, "user", "assessment");
     }
 
     @Test
@@ -105,16 +105,16 @@ public class AssessmentRatingServiceTest {
         Book book = createBook();
         Assessment assessment = createAssessment(applicationUser, book);
         AssessmentRatingCreateDTO create = new AssessmentRatingCreateDTO();
-        create.setUser(applicationUser.getId());
-        create.setAssessment(assessment.getId());
+        create.setUserId(applicationUser.getId());
+        create.setAssessmentId(assessment.getId());
         create.setLikeStatus(true);
 
         AssessmentRatingReadExtendedDTO read = assessmentRatingService.createAssessmentRatingExtended(create);
-        Assertions.assertThat(create).isEqualToIgnoringGivenFields(read, "user", "assessment");
+        Assertions.assertThat(create).isEqualToIgnoringGivenFields(read, "userId", "assessmentId");
         Assert.assertNotNull(read.getId());
 
         AssessmentRating assessmentRating = assessmentRatingRepository.findById(read.getId()).get();
-        Assertions.assertThat(read).isEqualToIgnoringGivenFields(assessmentRating, "user", "assessment");
+        Assertions.assertThat(assessmentRating).isEqualToIgnoringGivenFields(read, "user", "assessment");
     }
 
     @Test
@@ -126,11 +126,11 @@ public class AssessmentRatingServiceTest {
 
         AssessmentRatingPutDTO put = new AssessmentRatingPutDTO();
         put.setLikeStatus(true);
-        put.setUser(applicationUser.getId());
-        put.setAssessment(assessment.getId());
+        put.setUserId(applicationUser.getId());
+        put.setAssessmentId(assessment.getId());
         AssessmentRatingReadDTO read = assessmentRatingService.updateAssessmentRating(assessmentRating.getId(), put);
 
-        Assertions.assertThat(put).isEqualToIgnoringGivenFields(assessmentRating, "user", "assessment");
+        Assertions.assertThat(put).isEqualToIgnoringGivenFields(read, "user", "assessment");
 
         assessmentRating = assessmentRatingRepository.findById(read.getId()).get();
         Assertions.assertThat(assessmentRating).isEqualToIgnoringGivenFields(assessmentRating, "user");
@@ -145,16 +145,17 @@ public class AssessmentRatingServiceTest {
 
         AssessmentRatingPatchDTO patch = new AssessmentRatingPatchDTO();
         patch.setLikeStatus(true);
-        patch.setUser(user.getId());
-        patch.setAssessment(assessment.getId());
+        patch.setUserId(user.getId());
+        patch.setAssessmentId(assessment.getId());
+
         AssessmentRatingReadDTO read = assessmentRatingService.patchAssessmentRating(assessmentRating.getId(), patch);
 
         Assertions.assertThat(patch)
-                .isEqualToIgnoringGivenFields(assessmentRating, "user", "assessment");
+                .isEqualToIgnoringGivenFields(read, "user", "assessment");
 
         assessmentRating = assessmentRatingRepository.findById(read.getId()).get();
         Assertions.assertThat(assessmentRating)
-                .isEqualToIgnoringGivenFields(assessmentRating, "user");
+                .isEqualToIgnoringGivenFields(read, "user", "assessment");
     }
 
     @Test
@@ -168,7 +169,7 @@ public class AssessmentRatingServiceTest {
         AssessmentRatingReadDTO read = assessmentRatingService.patchAssessmentRating(assessmentRating.getId(), patch);
 
         Assert.assertNotNull(read.getLikeStatus());
-        Assert.assertNotNull(read.getUser());
+        Assert.assertNotNull(read.getUserId());
 
         AssessmentRating assessmentRatingAfterUpdate = assessmentRatingRepository.findById(read.getId()).get();
 

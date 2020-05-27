@@ -44,17 +44,19 @@ public class AssessmentRatingService {
     private AssessmentRatingReadExtendedDTO toReadExtended(AssessmentRating assessmentRating) {
         AssessmentRatingReadExtendedDTO dto = new AssessmentRatingReadExtendedDTO();
         dto.setId(assessmentRating.getId());
-        dto.setUser(translationService.toRead(assessmentRating.getUser()));
-        dto.setAssessment(translationService.toRead(assessmentRating.getAssessment()));
+        dto.setUserId(translationService.toRead(assessmentRating.getUser()));
+        dto.setAssessmentId(translationService.toRead(assessmentRating.getAssessment()));
         dto.setLikeStatus(assessmentRating.getLikeStatus());
+        dto.setCreatedAt(assessmentRating.getCreatedAt());
+        dto.setUpdatedAt(assessmentRating.getUpdatedAt());
         return dto;
     }
 
     public AssessmentRatingReadDTO createAssessmentRating(AssessmentRatingCreateDTO create) {
         AssessmentRating assessmentRating = new AssessmentRating();
         assessmentRating.setLikeStatus(create.getLikeStatus());
-        assessmentRating.setUser(applicationUserService.getUserRequired(create.getUser()));
-        assessmentRating.setAssessment(assessmentService.getAssessmentRequired(create.getAssessment()));
+        assessmentRating.setUser(applicationUserService.getUserRequired(create.getUserId()));
+        assessmentRating.setAssessment(assessmentService.getAssessmentRequired(create.getAssessmentId()));
 
         assessmentRating = assessmentRatingRepository.save(assessmentRating);
         return translationService.toRead(assessmentRating);
@@ -63,8 +65,8 @@ public class AssessmentRatingService {
     public AssessmentRatingReadExtendedDTO createAssessmentRatingExtended(AssessmentRatingCreateDTO create) {
         AssessmentRating assessmentRating = new AssessmentRating();
         assessmentRating.setLikeStatus(create.getLikeStatus());
-        assessmentRating.setUser(applicationUserService.getUserRequired(create.getUser()));
-        assessmentRating.setAssessment(assessmentService.getAssessmentRequired(create.getAssessment()));
+        assessmentRating.setUser(applicationUserService.getUserRequired(create.getUserId()));
+        assessmentRating.setAssessment(assessmentService.getAssessmentRequired(create.getAssessmentId()));
 
         assessmentRating = assessmentRatingRepository.save(assessmentRating);
         return toReadExtended(assessmentRating);
@@ -73,16 +75,16 @@ public class AssessmentRatingService {
     public AssessmentRatingReadDTO patchAssessmentRating(UUID id, AssessmentRatingPatchDTO patch) {
         AssessmentRating assessmentRating = getAssessmentRatingRequired(id);
 
-        if (patch.getUser() != null) {
-            assessmentRating.setUser(applicationUserService.getUserRequired(patch.getUser()));
+        if (patch.getUserId() != null) {
+            assessmentRating.setUser(applicationUserService.getUserRequired(patch.getUserId()));
         }
 
         if (patch.getLikeStatus() != null) {
             assessmentRating.setLikeStatus(patch.getLikeStatus());
         }
 
-        if (patch.getAssessment() != null) {
-            assessmentRating.setAssessment(assessmentService.getAssessmentRequired(patch.getAssessment()));
+        if (patch.getAssessmentId() != null) {
+            assessmentRating.setAssessment(assessmentService.getAssessmentRequired(patch.getAssessmentId()));
         }
 
         assessmentRating = assessmentRatingRepository.save(assessmentRating);
@@ -91,8 +93,8 @@ public class AssessmentRatingService {
 
     public AssessmentRatingReadDTO updateAssessmentRating(UUID id, AssessmentRatingPutDTO put) {
         AssessmentRating assessmentRating = getAssessmentRatingRequired(id);
-        assessmentRating.setUser(applicationUserService.getUserRequired(put.getUser()));
-        assessmentRating.setAssessment(assessmentService.getAssessmentRequired(put.getAssessment()));
+        assessmentRating.setUser(applicationUserService.getUserRequired(put.getUserId()));
+        assessmentRating.setAssessment(assessmentService.getAssessmentRequired(put.getAssessmentId()));
         assessmentRating.setLikeStatus(put.getLikeStatus());
 
         return translationService.toRead(assessmentRating);

@@ -7,6 +7,6 @@ import java.util.UUID;
 @Data
 public class AssessmentRatingCreateDTO {
     private Boolean likeStatus;
-    private UUID user;
-    private UUID assessment;
+    private UUID userId;
+    private UUID assessmentId;
 }

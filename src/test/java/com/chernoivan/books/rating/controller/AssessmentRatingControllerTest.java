@@ -111,8 +111,8 @@ public class AssessmentRatingControllerTest {
         filter.setLikeStatus(true);
 
         AssessmentRatingReadDTO read = new AssessmentRatingReadDTO();
-        read.setAssessment(filter.getAssessmentId());
-        read.setUser(filter.getUserId());
+        read.setAssessmentId(filter.getAssessmentId());
+        read.setUserId(filter.getUserId());
         read.setLikeStatus(true);
         read.setId(UUID.randomUUID());
         List<AssessmentRatingReadDTO> expectedResult = List.of(read);

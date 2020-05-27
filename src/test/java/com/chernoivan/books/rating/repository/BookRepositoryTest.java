@@ -10,8 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +28,9 @@ import static org.junit.Assert.assertTrue;
 public class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;
 
     @Test
     public void testSave() {
@@ -56,6 +64,17 @@ public class BookRepositoryTest {
         Instant updatedAtAfterReload = book.getUpdatedAt();
         Assert.assertNotNull(updatedAtAfterReload);
         Assert.assertEquals(updatedAtBeforeReload, updatedAtAfterReload);
+    }
+
+    @Test
+    public void testGetIdsOfBooks() {
+        Set<UUID> expectedIsdOfBooks = new HashSet<>();
+        expectedIsdOfBooks.add(createBook().getId());
+        expectedIsdOfBooks.add(createBook().getId());
+
+        transactionTemplate.executeWithoutResult(status -> {
+            Assert.assertEquals(expectedIsdOfBooks,bookRepository.getIdsOfBooks().collect(Collectors.toSet()));
+        });
     }
 
     private Book createBook() {

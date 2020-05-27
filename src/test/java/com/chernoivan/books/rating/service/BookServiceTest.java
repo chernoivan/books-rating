@@ -14,6 +14,7 @@ import com.chernoivan.books.rating.dto.book.BookCreateDTO;
 import com.chernoivan.books.rating.dto.book.BookPatchDTO;
 import com.chernoivan.books.rating.dto.book.BookPutDTO;
 import com.chernoivan.books.rating.dto.book.BookReadDTO;
+import com.chernoivan.books.rating.job.UpdateRatingOfBooksJob;
 import com.chernoivan.books.rating.repository.ApplicationUserRepository;
 import com.chernoivan.books.rating.repository.AssessmentRepository;
 import com.chernoivan.books.rating.repository.BookRepository;
@@ -52,6 +53,9 @@ public class BookServiceTest {
 
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
+
+    @Autowired
+    private UpdateRatingOfBooksJob updateRatingOfBooksJob;
 
     @Test
     public void testGetBook() {
@@ -146,6 +150,19 @@ public class BookServiceTest {
         createAssessment(applicationUser, book, 9);
 
         bookService.updateAverageMark(book.getId());
+        book = bookRepository.findById(book.getId()).get();
+        Assert.assertEquals(8.0, book.getBookRating(), Double.MIN_NORMAL);
+    }
+
+    @Test
+    public void testUpdateRatingOfBooks() {
+        Book book = createBook1();
+        ApplicationUser applicationUser = createUser();
+
+        createAssessment(applicationUser, book, 7);
+        createAssessment(applicationUser, book, 9);
+        updateRatingOfBooksJob.updateRatingOfBooks();
+
         book = bookRepository.findById(book.getId()).get();
         Assert.assertEquals(8.0, book.getBookRating(), Double.MIN_NORMAL);
     }

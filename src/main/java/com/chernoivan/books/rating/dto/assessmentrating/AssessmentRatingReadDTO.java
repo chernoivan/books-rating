@@ -9,8 +9,8 @@ import java.util.UUID;
 public class AssessmentRatingReadDTO {
     private UUID id;
     private Boolean likeStatus;
-    private UUID user;
-    private UUID assessment;
+    private UUID userId;
+    private UUID assessmentId;
     private Instant createdAt;
     private Instant updatedAt;
 }

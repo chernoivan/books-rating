@@ -24,6 +24,8 @@ import com.chernoivan.books.rating.dto.bookgenre.BookGenrePatchDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenrePutDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenreReadDTO;
 import com.chernoivan.books.rating.repository.RepositoryHelper;
+import org.bitbucket.brunneng.ot.Configuration;
+import org.bitbucket.brunneng.ot.ObjectTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,107 +35,71 @@ public class TranslationService {
     @Autowired
     private RepositoryHelper repositoryHelper;
 
-//    private ObjectTranslator objectTranslator = new ObjectTranslator();
+    private ObjectTranslator objectTranslator = new ObjectTranslator();
 
-//    public TranslationService() {
-//        objectTranslator = new ObjectTranslator(createConfiguration());
-//    }
-//
-//    private Configuration createConfiguration() {
-//        Configuration c = new Configuration();
-//        configureForAssessment(c);
-//
-//        return c;
-//    }
-//
-//    private void configureForAssessment(Configuration c) {
-//        Configuration.Translation t = c.beanOfClass(Assessment.class).translationTo(AssessmentReadDTO.class);
-//        t.srcProperty("user.id").translatesTo("userId");
-//    }
+    public TranslationService() {
+        objectTranslator = new ObjectTranslator(createConfiguration());
+    }
+
+    private Configuration createConfiguration() {
+        Configuration c = new Configuration();
+        configureForAssessment(c);
+        configureForAssessmentRating(c);
+        configureForBookGenre(c);
+
+        return c;
+    }
+
+    private void configureForAssessment(Configuration c) {
+        Configuration.Translation t = c.beanOfClass(Assessment.class).translationTo(AssessmentReadDTO.class);
+        t.srcProperty("user.id").translatesTo("userId");
+        t.srcProperty("book.id").translatesTo("bookId");
+    }
+
+    private void configureForAssessmentRating(Configuration c) {
+        Configuration.Translation t = c.beanOfClass(AssessmentRating.class).
+                translationTo(AssessmentRatingReadDTO.class);
+        t.srcProperty("user.id").translatesTo("userId");
+        t.srcProperty("assessment.id").translatesTo("assessmentId");
+    }
+
+    private void configureForBookGenre(Configuration c) {
+        Configuration.Translation t = c.beanOfClass(BookGenre.class).translationTo(BookGenreReadDTO.class);
+        t.srcProperty("book.id").translatesTo("bookId");
+    }
 
     public AssessmentRatingReadExtendedDTO toReadExtended(AssessmentRating assessmentRating) {
         AssessmentRatingReadExtendedDTO dto = new AssessmentRatingReadExtendedDTO();
         dto.setId(assessmentRating.getId());
-        dto.setUser(toRead(assessmentRating.getUser()));
+        dto.setUserId(toRead(assessmentRating.getUser()));
         dto.setLikeStatus(assessmentRating.getLikeStatus());
-        return dto;
-    }
-
-    public ApplicationUserReadDTO toRead(ApplicationUser applicationUser) {
-        ApplicationUserReadDTO dto = new ApplicationUserReadDTO();
-        dto.setId(applicationUser.getId());
-        dto.setUsername(applicationUser.getUsername());
-        dto.setEmail(applicationUser.getEmail());
-        dto.setCreatedAt(applicationUser.getCreatedAt());
-        dto.setUpdatedAt(applicationUser.getUpdatedAt());
-        dto.setAccess(applicationUser.getAccess());
-        dto.setUserType(applicationUser.getUserType());
-        return dto;
-    }
-
-    public AssessmentReadDTO toRead(Assessment assessment) {
-        AssessmentReadDTO dto = new AssessmentReadDTO();
-        dto.setId(assessment.getId());
-        dto.setAssessmentText(assessment.getAssessmentText());
-        dto.setAssessmentType(assessment.getAssessmentType());
-        dto.setLikesCount(assessment.getLikesCount());
-        dto.setRating(assessment.getRating());
-        dto.setUserId(assessment.getUser().getId());
-        dto.setBookId(assessment.getBook().getId());
-        dto.setCreatedAt(assessment.getCreatedAt());
-        dto.setUpdatedAt(assessment.getUpdatedAt());
-        return dto;
-    }
-
-//    public AssessmentReadDTO toRead(Assessment assessment) {
-//        return objectTranslator.translate(assessment, AssessmentReadDTO.class);
-//    }
-
-    public AssessmentRatingReadDTO toRead(AssessmentRating assessmentRating) {
-        AssessmentRatingReadDTO dto = new AssessmentRatingReadDTO();
-        dto.setId(assessmentRating.getId());
-        dto.setLikeStatus(assessmentRating.getLikeStatus());
-        dto.setAssessment(assessmentRating.getAssessment().getId());
-        dto.setUser(assessmentRating.getUser().getId());
         dto.setCreatedAt(assessmentRating.getCreatedAt());
         dto.setUpdatedAt(assessmentRating.getUpdatedAt());
         return dto;
     }
 
+    public ApplicationUserReadDTO toRead(ApplicationUser applicationUser) {
+        return objectTranslator.translate(applicationUser, ApplicationUserReadDTO.class);
+    }
+
+    public AssessmentReadDTO toRead(Assessment assessment) {
+        return objectTranslator.translate(assessment, AssessmentReadDTO.class);
+    }
+
+    public AssessmentRatingReadDTO toRead(AssessmentRating assessmentRating) {
+        return objectTranslator.translate(assessmentRating, AssessmentRatingReadDTO.class);
+    }
+
     public BookReadDTO toRead(Book book) {
-        BookReadDTO dto = new BookReadDTO();
-        dto.setId(book.getId());
-        dto.setBookRating(book.getBookRating());
-        dto.setBookStatus(book.getBookStatus());
-        dto.setInfo(book.getInfo());
-        dto.setReleaseDate(book.getReleaseDate());
-        dto.setTitle(book.getTitle());
-        dto.setCreatedAt(book.getCreatedAt());
-        dto.setUpdatedAt(book.getUpdatedAt());
-        return dto;
+        return objectTranslator.translate(book, BookReadDTO.class);
     }
 
     public BookGenreReadDTO toRead(BookGenre bookGenre) {
-        BookGenreReadDTO dto = new BookGenreReadDTO();
-        dto.setId(bookGenre.getId());
-        dto.setBookId(bookGenre.getBook().getId());
-        dto.setBookGenres(bookGenre.getBookGenres());
-        dto.setCreatedAt(bookGenre.getCreatedAt());
-        dto.setUpdatedAt(bookGenre.getUpdatedAt());
-        return dto;
+        return objectTranslator.translate(bookGenre, BookGenreReadDTO.class);
     }
 
     public AuthorReadDTO toRead(Author author) {
-        AuthorReadDTO dto = new AuthorReadDTO();
-        dto.setId(author.getId());
-        dto.setAuthorRating(author.getAuthorRating());
-        dto.setBiography(author.getBiography());
-        dto.setDateOfBirth(author.getDateOfBirth());
-        dto.setFirstName(author.getFirstName());
-        dto.setLastName(author.getLastName());
-        dto.setCreatedAt(author.getCreatedAt());
-        dto.setUpdatedAt(author.getUpdatedAt());
-        return dto;
+        return objectTranslator.translate(author, AuthorReadDTO.class);
     }
 
     public ApplicationUser toEntity(ApplicationUserCreateDTO create) {

@@ -1,6 +1,5 @@
 package com.chernoivan.books.rating.job;
 
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Import(ScheduledConfigurationTest.ScheduledTestConfig.class)
 @ActiveProfiles("test")
 public class ScheduledConfigurationTest {
+
     @Test
     public void testSpringContentUpAndRunning() {
         log.info("@Scheduled configurations are OK");
