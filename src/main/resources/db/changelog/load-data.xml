@@ -9,8 +9,8 @@
             <column name="id" type="uuid"/>
             <column name="username" type="string"/>
             <column name="email" type="string"/>
+            <column name="encoded_password" type="string"/>
             <column name="access" type="string"/>
-            <column name="user_type" type="string"/>
         </loadUpdateData>
     </changeSet>
 
@@ -21,6 +21,7 @@
             <column name="assessment_text" type="string"/>
             <column name="rating" type="numeric"/>
             <column name="assessment_type" type="string"/>
+            <column name="user_id" type="uuid"/>
         </loadUpdateData>
     </changeSet>
 
@@ -39,10 +40,28 @@
             <column name="first_name" type="string"/>
             <column name="last_name" type="string"/>
             <column name="biography" type="string"/>
-            <column name="dateOfBirth" type="date"/>
-            <column name="biography" type="numeric"/>
+            <column name="date_of_birth" type="date"/>
+            <column name="author_rating" type="numeric"/>
         </loadUpdateData>
     </changeSet>
 
+    <changeSet id="load book" author="chernoivan" runOnChange="true">
+        <loadUpdateData tableName="book" file="db/data/book.csv" separator=";" primaryKey="id">
+            <column name="id" type="uuid"/>
+            <column name="title" type="string"/>
+            <column name="book_rating" type="numeric"/>
+            <column name="release_date" type="date"/>
+            <column name="info" type="string"/>
+            <column name="book_status" type="string"/>
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="load book_genre" author="chernoivan" runOnChange="true">
+        <loadUpdateData tableName="book_genre" file="db/data/book_genre.csv" separator=";" primaryKey="id">
+            <column name="id" type="uuid"/>
+            <column name="book_genres" type="string"/>
+            <column name="book_id" type="uuid"/>
+        </loadUpdateData>
+    </changeSet>
 
 </databaseChangeLog>

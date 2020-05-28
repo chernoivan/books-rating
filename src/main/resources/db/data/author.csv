@@ -1,1 +1,2 @@
-id;first_name;last_name;biography;dateOfBirth;authorRating
+id;first_name;last_name;biography;date_of_birth;author_rating
+a5cb02ca-e61d-4ddf-a276-3c49a73d441c;Alex;Gobnev;my biography;18-01-1845;7

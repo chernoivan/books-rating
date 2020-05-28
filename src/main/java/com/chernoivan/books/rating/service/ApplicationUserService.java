@@ -49,7 +49,6 @@ public class ApplicationUserService {
 
         applicationUser = applicationUserRepository.save(applicationUser);
         return translationService.toRead(applicationUser);
-
     }
 
     public void deleteUser(UUID id) {

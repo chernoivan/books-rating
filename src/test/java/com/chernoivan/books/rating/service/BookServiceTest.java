@@ -1,15 +1,11 @@
 package com.chernoivan.books.rating.service;
 
-import com.chernoivan.books.rating.Application;
 import com.chernoivan.books.rating.domain.ApplicationUser;
 import com.chernoivan.books.rating.domain.Assessment;
 import com.chernoivan.books.rating.domain.Book;
 import com.chernoivan.books.rating.domain.enums.AccessLevelType;
 import com.chernoivan.books.rating.domain.enums.AssessmentType;
 import com.chernoivan.books.rating.domain.enums.BookStatus;
-import com.chernoivan.books.rating.domain.enums.UserRoleType;
-import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserPutDTO;
-import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserReadDTO;
 import com.chernoivan.books.rating.dto.book.BookCreateDTO;
 import com.chernoivan.books.rating.dto.book.BookPatchDTO;
 import com.chernoivan.books.rating.dto.book.BookPutDTO;
@@ -183,7 +179,6 @@ public class BookServiceTest {
         applicationUser.setUsername("Alex");
         applicationUser.setEmail("alexchernoivan@gmail.com");
         applicationUser.setAccess(AccessLevelType.FULL_ACCESS);
-        applicationUser.setUserType(UserRoleType.MODERATOR);
         return applicationUserRepository.save(applicationUser);
     }
 

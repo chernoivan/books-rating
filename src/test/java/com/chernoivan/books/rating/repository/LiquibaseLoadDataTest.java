@@ -1,6 +1,7 @@
 package com.chernoivan.books.rating.repository;
 
 
+import com.chernoivan.books.rating.dto.userrole.UserRoleReadDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +18,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @TestPropertySource(properties = "spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml")
 @Sql(statements = {
         "delete from assessment_rating",
+        "delete from assessment",
         "delete from application_user",
-        "delete from assessment"},
+        "delete from user_role",
+        "delete from book_genre",
+        "delete from book",
+        "delete from author"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class LiquibaseLoadDataTest {
     @Autowired
@@ -30,10 +35,22 @@ public class LiquibaseLoadDataTest {
     @Autowired
     private AssessmentRatingRepository assessmentRatingRepository;
 
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private BookGenreRepository bookGenreRepository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
+
     @Test
     public void testDataLoader() {
         Assert.assertTrue(applicationUserRepository.count() > 0);
         Assert.assertTrue(assessmentRepository.count() > 0);
         Assert.assertTrue(assessmentRatingRepository.count() > 0);
+        Assert.assertTrue(bookRepository.count() > 0);
+        Assert.assertTrue(bookGenreRepository.count() > 0);
+        Assert.assertTrue(authorRepository.count() > 0);
     }
 }

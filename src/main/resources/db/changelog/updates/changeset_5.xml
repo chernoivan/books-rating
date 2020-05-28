@@ -3,32 +3,32 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-                <changeSet id = "create table author" author = "chernoivan">
-                  <createTable tableName="author">
-                    <column name="id" type="uuid">
-                      <constraints primaryKey="true"/>
-                    </column>
-                    <column name="first_name" type="varchar(50)"/>
-                    <column name="last_name" type="varchar(50)"/>
-                    <column name="date_of_birth" type="datetime"/>
-                    <column name="biography" type="varchar(255)"/>
-                    <column name="author_rating" type="double"/>
-                    <column name="created_at" type="datetime"/>
-                    <column name="updated_at" type="datetime"/>
-                  </createTable>
-                </changeSet>
+    <changeSet id="create table author" author="chernoivan">
+        <createTable tableName="author">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="date_of_birth" type="datetime"/>
+            <column name="biography" type="varchar(255)"/>
+            <column name="author_rating" type="double"/>
+            <column name="created_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
 
-                <changeSet id="create manyToMany table between author and book" author="chernoivan">
-                  <createTable tableName="author_book">
-                    <column name="author_id" type="uuid">
-                      <constraints foreignKeyName="ab_author_fk" references="author(id)"
-                        nullable="false" deleteCascade="true"/>
-                    </column>
-                    <column name="book_id" type="uuid">
-                      <constraints foreignKeyName="ab_book_fk" references="book(id)"
-                        nullable="false" deleteCascade="true"/>
-                    </column>
-                  </createTable>
-                </changeSet>
+    <changeSet id="create manyToMany table between author and book" author="chernoivan">
+        <createTable tableName="author_book">
+            <column name="author_id" type="uuid">
+                <constraints foreignKeyName="ab_author_fk" references="author(id)"
+                             nullable="false" deleteCascade="true"/>
+            </column>
+            <column name="book_id" type="uuid">
+                <constraints foreignKeyName="ab_book_fk" references="book(id)"
+                             nullable="false" deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>

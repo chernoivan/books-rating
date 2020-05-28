@@ -8,6 +8,7 @@ import com.chernoivan.books.rating.dto.assessment.AssessmentCreateDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentPatchDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentPutDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentReadDTO;
+import com.chernoivan.books.rating.security.UserDetailsServiceImpl;
 import com.chernoivan.books.rating.service.AssessmentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
@@ -31,6 +32,9 @@ import java.util.UUID;
 @WebMvcTest(controllers = AssessmentController.class)
 @ActiveProfiles("test")
 public class AssessmentControllerTest {
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
     @Autowired
     private MockMvc mvc;
 

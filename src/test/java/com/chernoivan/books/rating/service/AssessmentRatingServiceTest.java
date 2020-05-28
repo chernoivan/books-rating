@@ -6,7 +6,6 @@ import com.chernoivan.books.rating.domain.AssessmentRating;
 import com.chernoivan.books.rating.domain.Book;
 import com.chernoivan.books.rating.domain.enums.AccessLevelType;
 import com.chernoivan.books.rating.domain.enums.AssessmentType;
-import com.chernoivan.books.rating.domain.enums.UserRoleType;
 import com.chernoivan.books.rating.dto.assessmentrating.*;
 import com.chernoivan.books.rating.exception.EntityNotFoundException;
 import com.chernoivan.books.rating.repository.ApplicationUserRepository;
@@ -299,7 +298,6 @@ public class AssessmentRatingServiceTest {
         applicationUser.setUsername("Alex");
         applicationUser.setEmail("alexchernoivan@gmail.com");
         applicationUser.setAccess(AccessLevelType.FULL_ACCESS);
-        applicationUser.setUserType(UserRoleType.MODERATOR);
         return applicationUserRepository.save(applicationUser);
     }
 

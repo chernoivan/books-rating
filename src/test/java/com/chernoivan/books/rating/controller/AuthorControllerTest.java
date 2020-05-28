@@ -4,6 +4,7 @@ import com.chernoivan.books.rating.dto.author.AuthorCreateDTO;
 import com.chernoivan.books.rating.dto.author.AuthorPatchDTO;
 import com.chernoivan.books.rating.dto.author.AuthorPutDTO;
 import com.chernoivan.books.rating.dto.author.AuthorReadDTO;
+import com.chernoivan.books.rating.security.UserDetailsServiceImpl;
 import com.chernoivan.books.rating.service.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
@@ -30,6 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = AuthorController.class)
 @ActiveProfiles("test")
 public class AuthorControllerTest {
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private MockMvc mvc;

@@ -5,7 +5,6 @@ import com.chernoivan.books.rating.domain.Assessment;
 import com.chernoivan.books.rating.domain.Book;
 import com.chernoivan.books.rating.domain.enums.AccessLevelType;
 import com.chernoivan.books.rating.domain.enums.AssessmentType;
-import com.chernoivan.books.rating.domain.enums.UserRoleType;
 import com.chernoivan.books.rating.dto.assessment.AssessmentCreateDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentPatchDTO;
 import com.chernoivan.books.rating.dto.assessment.AssessmentPutDTO;
@@ -210,7 +209,6 @@ public class AssessmentServiceTest {
         applicationUser.setUsername("Alex");
         applicationUser.setEmail("alexchernoivan@gmail.com");
         applicationUser.setAccess(AccessLevelType.FULL_ACCESS);
-        applicationUser.setUserType(UserRoleType.MODERATOR);
         return applicationUserRepository.save(applicationUser);
     }
 

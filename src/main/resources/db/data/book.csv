@@ -1,1 +1,2 @@
-id;title;bookRating;releaseDate;info;bookStatus
+id;title;book_rating;release_date;info;book_status
+44c4e9cb-f12e-402a-a915-011f5cdb7263;Hello word;7;16-05-2005;book about word;RELEASED

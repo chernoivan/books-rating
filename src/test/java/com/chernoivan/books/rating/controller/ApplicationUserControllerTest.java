@@ -12,6 +12,7 @@ import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserReadDTO;
 import com.chernoivan.books.rating.exception.EntityNotFoundException;
 import com.chernoivan.books.rating.exception.hander.ErrorInfo;
 import com.chernoivan.books.rating.exception.hander.RestExceptionHandler;
+import com.chernoivan.books.rating.security.UserDetailsServiceImpl;
 import com.chernoivan.books.rating.service.ApplicationUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
@@ -36,6 +37,9 @@ import java.util.UUID;
 @WebMvcTest(controllers = ApplicationUserController.class)
 @ActiveProfiles("test")
 public class ApplicationUserControllerTest {
+
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private MockMvc mvc;

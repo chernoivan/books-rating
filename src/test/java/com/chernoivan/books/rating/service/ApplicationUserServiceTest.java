@@ -26,7 +26,10 @@ import java.util.UUID;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-@Sql(statements = "delete from application_user", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(statements = {
+        "delete from assessment",
+        "delete from assessment_rating",
+        "delete from application_user"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class ApplicationUserServiceTest {
 
     @Autowired
@@ -57,7 +60,6 @@ public class ApplicationUserServiceTest {
         create.setUsername("Alex");
         create.setEmail("alexchernoivan@gmail.com");
         create.setAccess(AccessLevelType.FULL_ACCESS);
-        create.setUserType(UserRoleType.REGISTERED_USER);
 
         ApplicationUserReadDTO read = applicationUserService.createUser(create);
         Assertions.assertThat(create).isEqualToComparingFieldByField(read);
@@ -75,14 +77,13 @@ public class ApplicationUserServiceTest {
         patch.setUsername("Stepan");
         patch.setEmail("newemail@gmail.com");
         patch.setAccess(AccessLevelType.FULL_ACCESS);
-        patch.setUserType(UserRoleType.REGISTERED_USER);
 
         ApplicationUserReadDTO read = applicationUserService.patchUser(applicationUser.getId(), patch);
 
         Assertions.assertThat(patch).isEqualToComparingFieldByField(read);
 
         applicationUser = applicationUserRepository.findById(read.getId()).get();
-        Assertions.assertThat(applicationUser).isEqualToIgnoringGivenFields(read, "items", "assessments");
+        Assertions.assertThat(applicationUser).isEqualToIgnoringGivenFields(read, "items", "assessments", "userRoles");
     }
 
     @Test
@@ -98,7 +99,7 @@ public class ApplicationUserServiceTest {
         Assertions.assertThat(put).isEqualToComparingFieldByField(read);
 
         applicationUser = applicationUserRepository.findById(read.getId()).get();
-        Assertions.assertThat(applicationUser).isEqualToIgnoringGivenFields(read, "items", "assessments");
+        Assertions.assertThat(applicationUser).isEqualToIgnoringGivenFields(read, "items", "assessments", "userRoles");
     }
 
     @Test
@@ -111,7 +112,6 @@ public class ApplicationUserServiceTest {
         Assert.assertNotNull(read.getUsername());
         Assert.assertNotNull(read.getEmail());
         Assert.assertNotNull(read.getAccess());
-        Assert.assertNotNull(read.getUserType());
 
         inTransaction(() -> {
             ApplicationUser applicationUserAfterUpdate = applicationUserRepository.findById(read.getId()).get();
@@ -119,8 +119,7 @@ public class ApplicationUserServiceTest {
             Assert.assertNotNull(applicationUserAfterUpdate.getUsername());
             Assert.assertNotNull(applicationUserAfterUpdate.getEmail());
             Assert.assertNotNull(applicationUserAfterUpdate.getAccess());
-            Assert.assertNotNull(applicationUserAfterUpdate.getUserType());
-            Assertions.assertThat(applicationUser).isEqualToIgnoringGivenFields(applicationUserAfterUpdate, "items", "assessments");
+            Assertions.assertThat(applicationUser).isEqualToIgnoringGivenFields(applicationUserAfterUpdate, "items", "assessments", "userRoles");
         });
     }
 
@@ -142,7 +141,6 @@ public class ApplicationUserServiceTest {
         applicationUser.setUsername("Alex");
         applicationUser.setEmail("alexchernoivan@gmail.com");
         applicationUser.setAccess(AccessLevelType.FULL_ACCESS);
-        applicationUser.setUserType(UserRoleType.MODERATOR);
         return applicationUserRepository.save(applicationUser);
     }
 

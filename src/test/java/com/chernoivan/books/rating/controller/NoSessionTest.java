@@ -1,7 +1,7 @@
 package com.chernoivan.books.rating.controller;
 
-import com.chernoivan.books.rating.domain.ApplicationUser;
 import com.chernoivan.books.rating.dto.applicationuser.ApplicationUserReadDTO;
+import com.chernoivan.books.rating.security.UserDetailsServiceImpl;
 import com.chernoivan.books.rating.service.ApplicationUserService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,6 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = ApplicationUserController.class)
 @ActiveProfiles("test")
 public class NoSessionTest {
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
     @MockBean
     private ApplicationUserService applicationUserService;
 

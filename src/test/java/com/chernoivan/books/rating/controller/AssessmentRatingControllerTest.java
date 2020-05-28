@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.chernoivan.books.rating.dto.assessmentrating.*;
+import com.chernoivan.books.rating.security.UserDetailsServiceImpl;
 import com.chernoivan.books.rating.service.AssessmentRatingService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,8 @@ import java.util.UUID;
 @WebMvcTest(controllers = AssessmentRatingController.class)
 @ActiveProfiles("test")
 public class AssessmentRatingControllerTest {
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private MockMvc mvc;

@@ -1,0 +1,25 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create ManyToMany table between applicationUser and userRole" author="chernoivan">
+        <createTable tableName="user_user_role">
+            <column name="application_user_id" type="uuid">
+                <constraints foreignKeyName="uur_user_fk" references="application_user(id)"
+                             nullable="false" deleteCascade="true" />
+            </column>
+            <column name="user_role_id" type="uuid">
+                <constraints foreignKeyName="uur_role_fk" references="user_role(id)"
+                             nullable="false" deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add column userType to UserRole" author="chernoivan">
+        <addColumn tableName="user_role">
+            <column name="user_type" type="varchar(20)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

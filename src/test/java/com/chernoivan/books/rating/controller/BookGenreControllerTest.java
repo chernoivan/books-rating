@@ -5,6 +5,7 @@ import com.chernoivan.books.rating.dto.bookgenre.BookGenreCreateDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenrePatchDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenrePutDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenreReadDTO;
+import com.chernoivan.books.rating.security.UserDetailsServiceImpl;
 import com.chernoivan.books.rating.service.BookGenreService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = BookGenreController.class)
 @ActiveProfiles("test")
 public class BookGenreControllerTest {
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private MockMvc mvc;

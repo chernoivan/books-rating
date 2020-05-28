@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface ApplicationUserRepository extends CrudRepository<ApplicationUser, UUID> {
+
+    ApplicationUser findByEmail(String email);
 }

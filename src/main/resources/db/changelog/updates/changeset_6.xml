@@ -3,28 +3,28 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-                <changeSet id = "drop column releaseDate from book" author = "chernoivan">
-                  <dropColumn tableName="book">
-                    <column name="release_date" type="datetime"/>
-                  </dropColumn>
-                </changeSet>
+    <changeSet id="drop column releaseDate from book" author="chernoivan">
+        <dropColumn tableName="book">
+            <column name="release_date" type="datetime"/>
+        </dropColumn>
+    </changeSet>
 
-                <changeSet id = "add column releaseDate to book" author = "chernoivan">
-                  <addColumn tableName="book">
-                    <column name="release_date" type="date"/>
-                  </addColumn>
-                </changeSet>
+    <changeSet id="add column releaseDate to book" author="chernoivan">
+        <addColumn tableName="book">
+            <column name="release_date" type="date"/>
+        </addColumn>
+    </changeSet>
 
-                <changeSet id = "drop column dateOfBirth from author" author = "chernoivan">
-                  <dropColumn tableName="author">
-                    <column name="date_of_birth" type="datetime"/>
-                  </dropColumn>
-                </changeSet>
+    <changeSet id="drop column dateOfBirth from author" author="chernoivan">
+        <dropColumn tableName="author">
+            <column name="date_of_birth" type="datetime"/>
+        </dropColumn>
+    </changeSet>
 
-                <changeSet id = "add column dateOfBirth to author" author = "chernoivan">
-                  <addColumn tableName="author">
-                    <column name="date_of_birth" type="date"/>
-                  </addColumn>
-                </changeSet>
+    <changeSet id="add column dateOfBirth to author" author="chernoivan">
+        <addColumn tableName="author">
+            <column name="date_of_birth" type="date"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

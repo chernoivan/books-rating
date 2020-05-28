@@ -12,6 +12,7 @@ import com.chernoivan.books.rating.dto.book.BookReadDTO;
 import com.chernoivan.books.rating.exception.EntityNotFoundException;
 import com.chernoivan.books.rating.exception.hander.ErrorInfo;
 import com.chernoivan.books.rating.exception.hander.RestExceptionHandler;
+import com.chernoivan.books.rating.security.UserDetailsServiceImpl;
 import com.chernoivan.books.rating.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
@@ -36,6 +37,8 @@ import java.util.UUID;
 @WebMvcTest(controllers = BookController.class)
 @ActiveProfiles("test")
 public class BookControllerTest {
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
 
     @MockBean
     private BookService bookService;

@@ -2,7 +2,6 @@ package com.chernoivan.books.rating.repository;
 
 import com.chernoivan.books.rating.domain.ApplicationUser;
 import com.chernoivan.books.rating.domain.enums.AccessLevelType;
-import com.chernoivan.books.rating.domain.enums.UserRoleType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +64,6 @@ public class ApplicationUserRepositoryTest {
         applicationUser.setUsername("Alex");
         applicationUser.setEmail("alexchernoivan@gmail.com");
         applicationUser.setAccess(AccessLevelType.FULL_ACCESS);
-        applicationUser.setUserType(UserRoleType.MODERATOR);
         return applicationUserRepository.save(applicationUser);
     }
 }

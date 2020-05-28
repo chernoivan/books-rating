@@ -1,5 +1,5 @@
-id;username;email;access;user_type
-48a89056-ef7d-420e-96db-261e3b58e26b;Alex;alexchernoivan@gmail.com;FULL_ACCESS;ADMIN
-ac4deaea-1bbc-4211-a6f1-15a61c0eb41e;Stepan;stepan@mail.ru;REQUIRED_MODERATION;REGISTERED_USER
-b97f80a8-bc16-4d81-b65b-975acdc870e0;Vasya;vasya@yandex.ua;REQUIRED_MODERATION;UNREGISTERED_USER
-317f6890-29ee-4147-b2f7-2467af8ae3e9;Grisha;Grisha123@gmail.com;FULL_ACCESS;REGISTERED_USER
+id;username;email;encoded_password;access
+48a89056-ef7d-420e-96db-261e3b58e26b;Alex;alexchernoivan@gmail.com;$2y$12$/AVDPlcZ6cAYCgB//5KH8OoJ7FxKRw.W734fZO/WPQhXwMdrC.4u2;FULL_ACCESS
+ac4deaea-1bbc-4211-a6f1-15a61c0eb41e;Stepan;stepan@mail.ru;;REQUIRED_MODERATION
+b97f80a8-bc16-4d81-b65b-975acdc870e0;Vasya;vasya@yandex.ua;;REQUIRED_MODERATION
+317f6890-29ee-4147-b2f7-2467af8ae3e9;Grisha;Grisha123@gmail.com;;FULL_ACCESS

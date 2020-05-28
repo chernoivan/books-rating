@@ -1,6 +1,7 @@
 package com.chernoivan.books.rating.service;
 
 import com.chernoivan.books.rating.domain.*;
+import com.chernoivan.books.rating.domain.enums.UserRoleType;
 import com.chernoivan.books.rating.dto.author.AuthorCreateDTO;
 import com.chernoivan.books.rating.dto.author.AuthorPatchDTO;
 import com.chernoivan.books.rating.dto.author.AuthorPutDTO;
@@ -23,11 +24,16 @@ import com.chernoivan.books.rating.dto.bookgenre.BookGenreCreateDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenrePatchDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenrePutDTO;
 import com.chernoivan.books.rating.dto.bookgenre.BookGenreReadDTO;
+import com.chernoivan.books.rating.dto.userrole.UserRoleCreateDTO;
+import com.chernoivan.books.rating.dto.userrole.UserRolePatchDTO;
+import com.chernoivan.books.rating.dto.userrole.UserRolePutDTO;
+import com.chernoivan.books.rating.dto.userrole.UserRoleReadDTO;
 import com.chernoivan.books.rating.repository.RepositoryHelper;
 import org.bitbucket.brunneng.ot.Configuration;
 import org.bitbucket.brunneng.ot.ObjectTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class TranslationService {
@@ -35,7 +41,7 @@ public class TranslationService {
     @Autowired
     private RepositoryHelper repositoryHelper;
 
-    private ObjectTranslator objectTranslator = new ObjectTranslator();
+    private ObjectTranslator objectTranslator;
 
     public TranslationService() {
         objectTranslator = new ObjectTranslator(createConfiguration());
@@ -57,8 +63,8 @@ public class TranslationService {
     }
 
     private void configureForAssessmentRating(Configuration c) {
-        Configuration.Translation t = c.beanOfClass(AssessmentRating.class).
-                translationTo(AssessmentRatingReadDTO.class);
+        Configuration.Translation t = c.beanOfClass(AssessmentRating.class)
+                .translationTo(AssessmentRatingReadDTO.class);
         t.srcProperty("user.id").translatesTo("userId");
         t.srcProperty("assessment.id").translatesTo("assessmentId");
     }
@@ -102,12 +108,15 @@ public class TranslationService {
         return objectTranslator.translate(author, AuthorReadDTO.class);
     }
 
+    public UserRoleReadDTO toRead(UserRole userRole) {
+        return objectTranslator.translate(userRole, UserRoleReadDTO.class);
+    }
+
     public ApplicationUser toEntity(ApplicationUserCreateDTO create) {
         ApplicationUser applicationUser = new ApplicationUser();
         applicationUser.setUsername(create.getUsername());
         applicationUser.setEmail(create.getEmail());
         applicationUser.setAccess(create.getAccess());
-        applicationUser.setUserType(create.getUserType());
         return applicationUser;
     }
 
@@ -148,6 +157,12 @@ public class TranslationService {
         return author;
     }
 
+    public UserRole toEntity(UserRoleCreateDTO create) {
+        UserRole userRole = new UserRole();
+        userRole.setUserType(UserRoleType.REGISTERED_USER);
+        return userRole;
+    }
+
     public void patchEntity(ApplicationUserPatchDTO patch, ApplicationUser applicationUser) {
         if (patch.getUsername() != null) {
             applicationUser.setUsername(patch.getUsername());
@@ -161,9 +176,6 @@ public class TranslationService {
             applicationUser.setAccess(patch.getAccess());
         }
 
-        if (patch.getUserType() != null) {
-            applicationUser.setUserType(patch.getUserType());
-        }
     }
 
     public void patchEntity(AssessmentPatchDTO patch, Assessment assessment) {
@@ -216,6 +228,12 @@ public class TranslationService {
         }
     }
 
+    public void patchEntity(UserRolePatchDTO patch, UserRole userRole) {
+        if (patch.getUserType() != null) {
+            userRole.setUserType(patch.getUserType());
+        }
+    }
+
     public void patchEntity(AuthorPatchDTO patch, Author author) {
         if (patch.getFirstName() != null) {
             author.setFirstName(patch.getFirstName());
@@ -242,7 +260,6 @@ public class TranslationService {
         applicationUser.setUsername(put.getUsername());
         applicationUser.setEmail(put.getEmail());
         applicationUser.setAccess(put.getAccess());
-        applicationUser.setUserType(put.getUserType());
     }
 
     public void updateEntity(AssessmentPutDTO put, Assessment assessment) {
@@ -271,6 +288,10 @@ public class TranslationService {
         author.setDateOfBirth(put.getDateOfBirth());
         author.setFirstName(put.getFirstName());
         author.setLastName(put.getLastName());
+    }
+
+    public void updateEntity(UserRolePutDTO put, UserRole userRole) {
+        userRole.setUserType(put.getUserType());
     }
 
 }

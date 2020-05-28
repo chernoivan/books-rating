@@ -1,7 +1,6 @@
 package com.chernoivan.books.rating.domain;
 
 import com.chernoivan.books.rating.domain.enums.AccessLevelType;
-import com.chernoivan.books.rating.domain.enums.UserRoleType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,12 +25,10 @@ public class ApplicationUser {
     private UUID id;
     private String username;
     private String email;
+    private String encodedPassword;
 
     @Enumerated(EnumType.STRING)
     private AccessLevelType access;
-
-    @Enumerated(EnumType.STRING)
-    private UserRoleType userType;
 
     @CreatedDate
     private Instant createdAt;
@@ -43,4 +41,10 @@ public class ApplicationUser {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Assessment> assessments;
+
+    @ManyToMany
+    @JoinTable(name = "user_user_role",
+            joinColumns = @JoinColumn(name = "application_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_role_id"))
+    private List<UserRole> userRoles = new ArrayList<>();
 }
