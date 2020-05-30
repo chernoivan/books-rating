@@ -10,8 +10,8 @@
         <version>2.2.1.RELEASE</version>
     </parent>
 
-    <groupId>com.chernoivan.movie.ratings</groupId>
-    <artifactId>movie-ratings</artifactId>
+    <groupId>com.chernoivan.books.rating</groupId>
+    <artifactId>books-rating</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

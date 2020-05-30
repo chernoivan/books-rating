@@ -30,5 +30,4 @@ public class RestExceptionHandler {
         ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST, ex.getClass(), error);
         return new ResponseEntity<>(errorInfo, new HttpHeaders(), errorInfo.getStatus());
     }
-
 }
