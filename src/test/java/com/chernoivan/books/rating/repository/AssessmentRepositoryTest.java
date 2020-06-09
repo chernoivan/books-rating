@@ -90,7 +90,7 @@ public class AssessmentRepositoryTest {
     private Assessment createAssessment(ApplicationUser applicationUser) {
         Assessment assessment = new Assessment();
         assessment.setAssessmentText("great movie");
-        assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        assessment.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         assessment.setLikesCount(23);
         assessment.setUser(applicationUser);
         return assessmentRepository.save(assessment);
@@ -99,7 +99,7 @@ public class AssessmentRepositoryTest {
     private Assessment createAssessmentForMark(ApplicationUser applicationUser, Book book, Integer rating) {
         Assessment assessment = new Assessment();
         assessment.setAssessmentText("great movie");
-        assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        assessment.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         assessment.setLikesCount(23);
         assessment.setUser(applicationUser);
         assessment.setBook(book);

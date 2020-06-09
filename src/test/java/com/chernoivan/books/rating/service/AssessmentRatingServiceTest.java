@@ -306,7 +306,7 @@ public class AssessmentRatingServiceTest {
         assessment.setRating(8);
         assessment.setLikesCount(null);
         assessment.setBook(book);
-        assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        assessment.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         assessment.setAssessmentText("Super movie!");
         assessment.setUser(applicationUser);
         return assessmentRepository.save(assessment);

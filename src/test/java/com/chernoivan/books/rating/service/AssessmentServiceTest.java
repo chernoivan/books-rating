@@ -79,7 +79,7 @@ public class AssessmentServiceTest {
         Book book = createBook();
         AssessmentCreateDTO create = new AssessmentCreateDTO();
         create.setAssessmentText("great movie");
-        create.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        create.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         create.setLikesCount(21);
         create.setBookId(book.getId());
         create.setRating(8);
@@ -101,7 +101,7 @@ public class AssessmentServiceTest {
 
         AssessmentPatchDTO patch = new AssessmentPatchDTO();
         patch.setAssessmentText("great movie");
-        patch.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        patch.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         patch.setLikesCount(21);
         patch.setRating(8);
         patch.setUserId(applicationUser.getId());
@@ -122,7 +122,7 @@ public class AssessmentServiceTest {
         Assessment assessment = createAssessment(applicationUser, book);
 
         AssessmentPutDTO put = new AssessmentPutDTO();
-        put.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        put.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         put.setRating(8);
         put.setBookId(book.getId());
         put.setUserId(applicationUser.getId());
@@ -196,7 +196,7 @@ public class AssessmentServiceTest {
     private Assessment createAssessment(ApplicationUser applicationUser, Book book) {
         Assessment assessment = new Assessment();
         assessment.setAssessmentText("great movie");
-        assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        assessment.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         assessment.setLikesCount(23);
         assessment.setRating(8);
         assessment.setUser(applicationUser);

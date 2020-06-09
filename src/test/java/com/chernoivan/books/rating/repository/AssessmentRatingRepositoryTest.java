@@ -113,7 +113,7 @@ public class AssessmentRatingRepositoryTest {
     private Assessment createAssessment(ApplicationUser applicationUser) {
         Assessment assessment = new Assessment();
         assessment.setAssessmentText("great movie");
-        assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        assessment.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         assessment.setLikesCount(23);
         assessment.setRating(8);
         assessment.setUser(applicationUser);

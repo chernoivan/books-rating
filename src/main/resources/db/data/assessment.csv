@@ -1,4 +1,4 @@
 id;likes_count;assessment_text;rating;assessment_type;user_id
-800fc953-4d6b-4489-ac7b-bb3dce85f0f9;3;good;7;FILM_ASSESSMENT;48a89056-ef7d-420e-96db-261e3b58e26b
-8fe31bc9-9837-4e6b-89b5-11ffafb1abe8;4;very good;9;FILM_ASSESSMENT;48a89056-ef7d-420e-96db-261e3b58e26b
-3fccd195-9c24-49e1-8657-5939d71392ee;5;normal;5;MEMBER_ASSESSMENT;ac4deaea-1bbc-4211-a6f1-15a61c0eb41e
+800fc953-4d6b-4489-ac7b-bb3dce85f0f9;3;good;7;BOOK_ASSESSMENT;48a89056-ef7d-420e-96db-261e3b58e26b
+8fe31bc9-9837-4e6b-89b5-11ffafb1abe8;4;very good;9;BOOK_ASSESSMENT;48a89056-ef7d-420e-96db-261e3b58e26b
+3fccd195-9c24-49e1-8657-5939d71392ee;5;normal;5;BOOK_ASSESSMENT;ac4deaea-1bbc-4211-a6f1-15a61c0eb41e

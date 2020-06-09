@@ -166,7 +166,7 @@ public class BookServiceTest {
     private Assessment createAssessment(ApplicationUser applicationUser, Book book, Integer rating) {
         Assessment assessment = new Assessment();
         assessment.setAssessmentText("great movie");
-        assessment.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        assessment.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         assessment.setLikesCount(23);
         assessment.setRating(rating);
         assessment.setUser(applicationUser);

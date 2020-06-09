@@ -65,7 +65,7 @@ public class AssessmentControllerTest {
     public void testCreateAssessment() throws Exception {
         AssessmentCreateDTO create = new AssessmentCreateDTO();
         create.setAssessmentText("great movie");
-        create.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        create.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         create.setLikesCount(21);
         create.setRating(8);
         create.setUserId(UUID.randomUUID());
@@ -138,7 +138,7 @@ public class AssessmentControllerTest {
         read.setId(UUID.randomUUID());
         read.setUserId(UUID.randomUUID());
         read.setAssessmentText("great movie");
-        read.setAssessmentType(AssessmentType.FILM_ASSESSMENT);
+        read.setAssessmentType(AssessmentType.BOOK_ASSESSMENT);
         read.setLikesCount(23);
         read.setRating(8);
         return read;
